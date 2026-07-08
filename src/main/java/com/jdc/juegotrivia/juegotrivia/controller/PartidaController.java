@@ -14,7 +14,8 @@ import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/partidas")
-@CrossOrigin(origins = "*")
+@CrossOrigin(origins = { "https://*.vercel.app", "http://localhost:3000", "http://localhost:5173",
+        "http://127.0.0.1:3000", "http://127.0.0.1:5173" }, allowCredentials = "true")
 public class PartidaController {
 
     @Autowired
@@ -48,6 +49,5 @@ public class PartidaController {
     public Partida crearPrivada(@RequestBody Partida partida) {
         return partidaService.crearPartidaPrivada(partida);
     }
-
 
 }
