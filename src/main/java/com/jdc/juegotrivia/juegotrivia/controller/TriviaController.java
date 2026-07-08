@@ -125,7 +125,7 @@ public class TriviaController {
         }
     }
 
-    List<Pregunta> cargarPreguntasParaSala(String codigo) {
+    public List<Pregunta> cargarPreguntasParaSala(String codigo) {
         if (codigo.startsWith("PUBLICA-")) {
             Long idCategoria = null;
             try {
