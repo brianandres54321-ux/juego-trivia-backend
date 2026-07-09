@@ -293,6 +293,13 @@ public class TriviaController {
 
         System.out.println("🏁 Fin del juego en sala " + codigo + " (" + rankingFinal.size() + " jugadores)");
 
+        try {
+            partidaService.limpiarAnfitrionPorCodigo(codigo);
+            System.out.println("🧹 Anfitrión limpiado para la partida " + codigo);
+        } catch (Exception e) {
+            System.out.println("⚠️ No se pudo limpiar el anfitrión de la partida " + codigo + ": " + e.getMessage());
+        }
+
         messagingTemplate.convertAndSend("/topic/finJuego/" + codigo, rankingFinal);
         estadoSala.put(codigo, false);
     }

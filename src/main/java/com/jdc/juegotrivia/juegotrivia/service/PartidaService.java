@@ -1,16 +1,17 @@
 package com.jdc.juegotrivia.juegotrivia.service;
 
-import com.jdc.juegotrivia.juegotrivia.model.Partida;
-import com.jdc.juegotrivia.juegotrivia.model.Categoria;
-import com.jdc.juegotrivia.juegotrivia.repository.PartidaRepository;
-import com.jdc.juegotrivia.juegotrivia.repository.CategoriaRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.jdc.juegotrivia.juegotrivia.model.Categoria;
+import com.jdc.juegotrivia.juegotrivia.model.Partida;
+import com.jdc.juegotrivia.juegotrivia.repository.CategoriaRepository;
+import com.jdc.juegotrivia.juegotrivia.repository.PartidaRepository;
 
 @Service
 public class PartidaService implements IPartidaService {
@@ -44,12 +45,13 @@ public class PartidaService implements IPartidaService {
         partida.setCategoria(categoria);
         partida.setFechaCreacion(LocalDateTime.now());
         partida.setPuntos(0);
-        partida.setUsuario("ADMIN"); // valor temporal o por defecto
+        partida.setUsuario(null);
         return repository.save(partida);
     }
 
     /**
-     * 🆕 Crear una partida privada desde una solicitud que incluye categoría y usuario.
+     * 🆕 Crear una partida privada desde una solicitud que incluye categoría y
+     * usuario.
      */
     public Partida crearPartidaPrivada(Partida partida) {
         String codigo = generarCodigoUnico();
@@ -73,10 +75,18 @@ public class PartidaService implements IPartidaService {
         }
 
         if (partida.getUsuario() == null || partida.getUsuario().trim().isEmpty()) {
-            partida.setUsuario("Anónimo"); // puedes cambiarlo por el nombre del jugador creador
+            partida.setUsuario(null);
         }
 
         return repository.save(partida);
+    }
+
+    @Override
+    public void limpiarAnfitrionPorCodigo(String codigo) {
+        repository.findByCodigo(codigo).ifPresent(partida -> {
+            partida.setUsuario(null);
+            repository.save(partida);
+        });
     }
 
     @Override
