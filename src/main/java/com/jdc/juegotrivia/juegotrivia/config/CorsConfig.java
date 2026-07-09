@@ -21,7 +21,7 @@ public class CorsConfig {
                                 "https://juego-trivia-frontend.vercel.app")
                         .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH")
                         .allowedHeaders("*")
-                        .allowCredentials(true)
+                        .allowCredentials(false)
                         .maxAge(3600);
             }
         };

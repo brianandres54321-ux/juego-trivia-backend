@@ -10,6 +10,6 @@ public interface IJugadorService {
     Optional<Jugador> findById(Long id);
     List<Jugador> findByPartida(Partida partida);
     Jugador save(Jugador jugador);
-    Jugador actualizarPuntos(Long idJugador, int puntos);
+    Jugador actualizarPuntos(Long idJugador, int puntos); 
     void delete(Long id);
 }
