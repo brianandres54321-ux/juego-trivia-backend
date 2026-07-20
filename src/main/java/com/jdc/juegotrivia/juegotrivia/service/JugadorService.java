@@ -2,9 +2,7 @@ package com.jdc.juegotrivia.juegotrivia.service;
 
 import com.jdc.juegotrivia.juegotrivia.model.Jugador;
 import com.jdc.juegotrivia.juegotrivia.model.Partida;
-import com.jdc.juegotrivia.juegotrivia.model.Respuesta;
 import com.jdc.juegotrivia.juegotrivia.repository.JugadorRepository;
-import com.jdc.juegotrivia.juegotrivia.repository.RespuestaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,9 +14,6 @@ public class JugadorService implements IJugadorService {
 
     @Autowired
     private JugadorRepository repository;
-
-    @Autowired
-    private RespuestaRepository respuestaRepository;
 
     @Override
     public List<Jugador> findAll() {
@@ -54,20 +49,6 @@ public class JugadorService implements IJugadorService {
     @Override
     public void delete(Long id) {
         repository.deleteById(id);
-    }
-
-
-    public boolean verificarRespuesta(String nombreJugador, Long idRespuesta) {
-        Respuesta respuesta = respuestaRepository.findById(idRespuesta).orElse(null);
-        if (respuesta != null && respuesta.isCorrecta()) {
-            Jugador jugador = repository.findByNombre(nombreJugador);
-            if (jugador != null) {
-                jugador.setPuntos(jugador.getPuntos() + 10);
-                repository.save(jugador);
-            }
-            return true;
-        }
-        return false;
     }
 
 }

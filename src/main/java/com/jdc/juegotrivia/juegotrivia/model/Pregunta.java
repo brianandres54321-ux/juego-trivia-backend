@@ -28,14 +28,6 @@ public class Pregunta {
     @OneToMany(mappedBy = "pregunta", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     private List<Respuesta> respuestas;
 
-    // ⏱️ Tiempo de inicio de la pregunta (no se guarda en DB)
-    @Transient
-    private long tiempoInicio;
-
-    // ✅ Opción correcta (se puede definir en tu servicio)
-    @Transient
-    private String respuestaCorrecta;
-
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_partida", nullable = true)
     private Partida partida;

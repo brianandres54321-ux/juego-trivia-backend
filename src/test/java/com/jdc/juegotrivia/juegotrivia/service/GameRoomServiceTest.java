@@ -1,11 +1,7 @@
-package com.jdc.juegotrivia.juegotrivia;
+package com.jdc.juegotrivia.juegotrivia.service;
 
-import com.jdc.juegotrivia.juegotrivia.controller.TriviaController;
 import com.jdc.juegotrivia.juegotrivia.model.Categoria;
 import com.jdc.juegotrivia.juegotrivia.model.Pregunta;
-import com.jdc.juegotrivia.juegotrivia.service.PartidaService;
-import com.jdc.juegotrivia.juegotrivia.service.PreguntaService;
-import com.jdc.juegotrivia.juegotrivia.service.RespuestaService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -20,7 +16,7 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
-class TriviaControllerTest {
+class GameRoomServiceTest {
 
     @Mock
     private PreguntaService preguntaService;
@@ -35,7 +31,7 @@ class TriviaControllerTest {
     private SimpMessagingTemplate messagingTemplate;
 
     @InjectMocks
-    private TriviaController controller;
+    private GameRoomService gameRoomService;
 
     @Test
     void deberiaRecuperarPreguntasPorCategoriaCuandoNoHayPreguntasPublicas() {
@@ -50,7 +46,7 @@ class TriviaControllerTest {
         when(preguntaService.findByCategoriaAndPartidaIsNull(categoria)).thenReturn(List.of());
         when(preguntaService.findByCategoria(categoria)).thenReturn(List.of(pregunta));
 
-        List<Pregunta> preguntas = controller.cargarPreguntasParaSala("PUBLICA-1");
+        List<Pregunta> preguntas = gameRoomService.cargarPreguntasParaSala("PUBLICA-1");
 
         assertEquals(1, preguntas.size());
         assertSame(pregunta, preguntas.get(0));

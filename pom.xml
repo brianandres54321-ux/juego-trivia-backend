@@ -16,7 +16,7 @@
     <artifactId>juegotrivia</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>juegotrivia</name>
-    <description>Juego distribuido tipo trivia (Multicast + TCP) - con WebSocket y PostgreSQL</description>
+    <description>Juego distribuido tipo trivia - con WebSocket/STOMP y PostgreSQL</description>
 
     <properties>
         <java.version>17</java.version>

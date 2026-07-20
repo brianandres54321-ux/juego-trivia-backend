@@ -7,7 +7,4 @@ import java.util.List;
 
 public interface JugadorRepository extends JpaRepository<Jugador, Long> {
     List<Jugador> findByPartida(Partida partida);
-
-
-    Jugador findByNombre(String nombre);
 }
